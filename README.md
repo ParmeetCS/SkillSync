@@ -38,5 +38,5 @@ Companies struggle to:
 - Notify students about relevant hackathons, competitions, and industry events.
 
 ## Tech Stack
-Frontend:  HTML,CSS
+Frontend:  HTML,CSS,Javascript
 Backend: PHP
