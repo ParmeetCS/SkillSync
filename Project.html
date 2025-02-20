@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Projects - SkillSync</title>
+    <link rel="shortcut icon" href="/images/fav.png" type="image/x-icon" />
+    <style>
+      :root {
+        --primary-color: #2563eb;
+        --secondary-color: #f5f7ff;
+        --text-color: #333333;
+        --sidebar-width: 250px;
+        --header-height: 70px;
+        --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f9fafb;
+        color: var(--text-color);
+      }
+
+      .sidebar {
+        position: fixed;
+        width: var(--sidebar-width);
+        height: 100vh;
+        background-color: white;
+        border-right: 1px solid #eaeaea;
+        padding: 20px 0;
+        z-index: 100px;
+        box-shadow: var(--shadow);
+        overflow-y: auto;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        margin-left: -10px;
+      }
+
+      .logo-container {
+        padding: 15px 20px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-placeholder {
+        width: 40px;
+        height: 40px;
+        background-color: #e0e0e0;
+        border-radius: 8px;
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #888;
+      }
+
+      .logo-text {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      .student-section {
+        padding: 0 20px;
+      }
+
+      .section-title {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        color: #888;
+        margin-bottom: 15px;
+        letter-spacing: 0.5px;
+      }
+
+      .menu-items {
+        list-style: none;
+      }
+
+      .menu-item {
+        margin-bottom: 10px;
+      }
+
+      .menu-link {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        border-radius: 8px;
+        color: var(--text-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .menu-link:hover,
+      .menu-link.active {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+      }
+
+      .menu-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .header {
+        position: fixed;
+        top: 0;
+        left: var(--sidebar-width);
+        right: 0;
+        height: var(--header-height);
+        background-color: white;
+        box-shadow: var(--shadow);
+        padding: 0 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 99;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-item {
+        margin: 0 15px;
+      }
+
+      .nav-link {
+        color: var(--text-color);
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+      }
+
+      .profile-area {
+        display: flex;
+        align-items: center;
+      }
+
+      .notifications {
+        margin-right: 20px;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .notification-icon {
+        width: 24px;
+        height: 24px;
+        color: #666;
+      }
+
+      .avatar img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #e0e0e0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .container {
+        margin-left: var(--sidebar-width);
+        padding-top: calc(var(--header-height) + 20px);
+        padding-right: 30px;
+        padding-left: 30px;
+      }
+
+      .project-header {
+        background: white;
+        padding: 24px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header-content h1 {
+        font-size: 24px;
+        color: #000;
+      }
+
+      .add-project-btn {
+        background: var(--primary-color);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 24px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .add-project-btn:hover {
+        background: #004182;
+      }
+
+      .project-filters {
+        display: flex;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .filter-btn {
+        padding: 8px 16px;
+        border: none;
+        background: transparent;
+        color: #666;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: all 0.2s;
+      }
+
+      .filter-btn:hover,
+      .filter-btn.active {
+        background: #edf3f8;
+        color: var(--primary-color);
+      }
+
+      .project-grid {
+        display: grid;
+        gap: 20px;
+      }
+
+      .project-card {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        transition: box-shadow 0.2s;
+      }
+
+      .project-card:hover {
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+      }
+
+      .project-content {
+        padding: 20px;
+      }
+
+      .project-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+
+      .project-title {
+        font-size: 18px;
+        color: #000;
+        margin-bottom: 8px;
+      }
+
+      .project-date {
+        color: #666;
+        font-size: 14px;
+      }
+
+      .project-description {
+        color: #333;
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+
+      .project-skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .skill-tag {
+        background: #edf3f8;
+        color: #0a66c2;
+        padding: 4px 12px;
+        border-radius: 16px;
+        font-size: 14px;
+      }
+
+      .project-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 16px;
+        border-top: 1px solid #f3f2ef;
+      }
+
+      .project-stats {
+        display: flex;
+        gap: 16px;
+        color: #666;
+        font-size: 14px;
+      }
+
+      .project-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .action-btn {
+        padding: 6px 12px;
+        border: none;
+        background: transparent;
+        color: #666;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 14px;
+        transition: all 0.2s;
+      }
+
+      .action-btn:hover {
+        background: #edf3f8;
+        color: #0a66c2;
+      }
+
+      @media (min-width: 768px) {
+        .project-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 992px) {
+        .sidebar {
+          transform: translateX(-100%);
+          transition: transform 0.3s ease;
+        }
+
+        .sidebar.active {
+          transform: translateX(0);
+        }
+
+        .header {
+          left: 0;
+        }
+
+        .container {
+          margin-left: 0;
+        }
+
+        .project-filters {
+          overflow-x: auto;
+          padding-bottom: 8px;
+        }
+
+        .header-content {
+          flex-direction: column;
+          gap: 16px;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="logo-container">
+        <img src="image_(3)_bg_removed.png[2].png.jpg" alt="logo" />
+      </div>
+
+      <div class="student-section">
+        <ul class="menu-items">
+          <li class="menu-item">
+            <a href="tips.html" class="menu-link">
+              <span class="menu-icon">
+                <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                <lord-icon
+                  src="https://cdn.lordicon.com/fcyboqbm.json"
+                  trigger="hover"
+                  style="width: 20px; height: 20px"
+                >
+                </lord-icon>
+              </span>
+              Tips & Insights
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="http://localhost/xampp/SkillSync/resume.html" class="menu-link">
+              <span class="menu-icon">
+                <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                <lord-icon
+                  src="https://cdn.lordicon.com/fjvfsqea.json"
+                  trigger="hover"
+                  stroke="bold"
+                  colors="primary:#242424,secondary:#3080e8"
+                  style="width: 20px; height: 20px"
+                >
+                </lord-icon>
+              </span>
+              Create Resume
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link active">
+              <span class="menu-icon">
+                <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                <lord-icon
+                  src="https://cdn.lordicon.com/exymduqj.json"
+                  trigger="hover"
+                  stroke="bold"
+                  colors="primary:#242424,secondary:#ffffff"
+                  style="width: 20px; height: 20px"
+                >
+                </lord-icon>
+              </span>
+              Projects
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="browse.html" class="menu-link">
+              <span class="menu-icon">
+                <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                <lord-icon
+                  src="https://cdn.lordicon.com/wjyqkiew.json"
+                  trigger="hover"
+                  stroke="bold"
+                  colors="primary:#242424,secondary:#3080e8"
+                  style="width: 20px; height: 20px"
+                >
+                </lord-icon>
+              </span>
+              Browse
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <header class="header">
+      <ul class="nav-links">
+        <li class="nav-item">
+          <a href="home.html" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="About.html" target="_self" class="nav-link">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="Contact.html" target="_self" class="nav-link">Contact</a>
+        </li>
+      </ul>
+
+      <div class="profile-area">
+        <div class="notifications">
+          <div class="notification-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="{1.5}"
+              stroke="currentColor"
+              className="size-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="avatar">
+          <a href="profiles.html"
+            ><img class="avatarimg" src="avatar.webp.jpg" alt="avatar"
+          /></a>
+        </div>
+    </header>
+
+    <div class="container">
+      <div class="project-header">
+        <div class="header-content">
+          <h1>My Projects</h1>
+          <button class="add-project-btn">+ Add Project</button>
+        </div>
+        <div class="project-filters">
+          <button class="filter-btn active">All Projects</button>
+          <button class="filter-btn">Web Development</button>
+          <button class="filter-btn">Mobile Apps</button>
+          <button class="filter-btn">Machine Learning</button>
+          <button class="filter-btn">Data Science</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

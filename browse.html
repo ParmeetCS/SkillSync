@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkillSync - Browse Opportunities</title>
+    <link rel="shortcut icon" href="/images/fav.png" type="image/x-icon" />
+    <style>
+      .header {
+        position: fixed;
+        top: 0;
+        left: 250px;
+        right: 0;
+        height: 70px;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 0 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 99;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-item {
+        margin: 0 15px;
+      }
+
+      .nav-link {
+        color: #333;
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        background-color: #f5f7ff;
+        color: #2563eb;
+      }
+
+      .profile-area {
+        display: flex;
+        align-items: center;
+      }
+
+      .notifications {
+        margin-right: 20px;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .notification-icon {
+        width: 24px;
+        height: 24px;
+        color: #666;
+      }
+
+      .avatar img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #e0e0e0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .sidebar {
+        top: 0;
+        position: fixed;
+        width: var(--sidebar-width);
+        height: 100vh;
+        background-color: white;
+        border-right: 1px solid #eaeaea;
+        padding: 20px 0;
+        z-index: 100px;
+        box-shadow: var(--shadow);
+        overflow-y: auto;
+      }
+
+      .logo-container {
+        padding: 15px 20px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        margin-left: -10px;
+      }
+
+      .menu-items {
+        list-style: none;
+        padding: 0 20px;
+      }
+
+      .menu-item {
+        margin-bottom: 10px;
+      }
+
+      .menu-link {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        border-radius: 8px;
+        color: #333;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .menu-link:hover,
+      .menu-link.active {
+        background-color: #f5f7ff;
+        color: #2563eb;
+      }
+
+      .menu-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      :root {
+        --primary-color: #2563eb;
+        --secondary-color: #f5f7ff;
+        --text-color: #333333;
+        --sidebar-width: 250px;
+        --header-height: 70px;
+        --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .main-content {
+        margin-left: var(--sidebar-width);
+        margin-top: var(--header-height);
+        padding: 30px;
+      }
+
+      .search-section {
+        background: var(--primary-color);
+        margin: -30px -30px 30px -30px;
+        padding: 40px 30px;
+        color: white;
+      }
+
+      .search-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .search-container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .search-box {
+        display: flex;
+        gap: 15px;
+        background: white;
+        padding: 8px;
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+      }
+
+      .search-input {
+        flex: 1;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        outline: none;
+      }
+      .student-section {
+        padding: 0 20px;
+        margin-left: -20px;
+      }
+
+      .section-title {
+        font-size: 0.8rem;
+        margin-left: 20px;
+        text-transform: uppercase;
+        color: #888;
+        margin-bottom: 15px;
+        letter-spacing: 0.5px;
+      }
+
+      .search-button {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+      }
+
+      .search-button:hover {
+        background-color: #1d4ed8;
+      }
+
+      .filters {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+        justify-content: center;
+      }
+
+      .filter-button {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .filter-button:hover,
+      .filter-button.active {
+        background: white;
+        color: var(--primary-color);
+      }
+
+      .browse-content {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .opportunities-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .opportunity-card {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease;
+        cursor: pointer;
+      }
+
+      .opportunity-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .opportunity-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+      }
+
+      .company-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .company-logo {
+        width: 50px;
+        height: 50px;
+        background: var(--secondary-color);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+      }
+
+      .company-details h3 {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+
+      .company-details p {
+        color: #666;
+        font-size: 14px;
+      }
+
+      .opportunity-type {
+        background: var(--secondary-color);
+        color: var(--primary-color);
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+      }
+
+      .opportunity-description {
+        color: #666;
+        margin-bottom: 15px;
+        line-height: 1.5;
+      }
+
+      .opportunity-tags {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .tag {
+        background: #f3f4f6;
+        padding: 4px 10px;
+        border-radius: 15px;
+        font-size: 13px;
+        color: #666;
+      }
+
+      .filters-sidebar {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: var(--shadow);
+        height: fit-content;
+      }
+
+      .filter-section {
+        margin-bottom: 20px;
+      }
+
+      .filter-section h3 {
+        font-size: 16px;
+        margin-bottom: 15px;
+      }
+
+      .filter-options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .filter-option {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .filter-checkbox {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--primary-color);
+      }
+
+      @media (max-width: 992px) {
+        .main-content {
+          margin-left: 0;
+        }
+
+        .browse-content {
+          grid-template-columns: 1fr;
+        }
+
+        .filters {
+          overflow-x: auto;
+          padding-bottom: 10px;
+        }
+
+        .filter-button {
+          white-space: nowrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <ul class="nav-links">
+        <li class="nav-item">
+          <a href="home.html" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="About.html" target="_self" class="nav-link">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="Contact.html" target="_self" class="nav-link">Contact</a>
+        </li>
+      </ul>
+
+      <div class="profile-area">
+        <div class="notifications">
+          <div class="notification-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="avatar">
+          <a href="profiles.html"
+            ><img class="avatarimg" src="avatar.webp.jpg" alt="avatar"
+          /></a>
+        </div>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <div class="logo-container">
+        <img src="image_(3)_bg_removed.png[2].png.jpg" alt="logo" />
+      </div>
+
+      <div class="student-section">
+        <ul class="menu-items">
+          <li class="menu-item">
+            <a href="tips.html" class="menu-link">
+              <span class="menu-icon">
+                <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                <lord-icon
+                  src="https://cdn.lordicon.com/fcyboqbm.json"
+                  trigger="hover"
+                  style="width: 24px; height: 24px"
+                >
+                </lord-icon>
+              </span>
+              Tips & Insights
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="http://localhost/xampp/SkillSync/resume.html" class="menu-link">
+              <span class="menu-icon">
+                <lord-icon
+                  src="https://cdn.lordicon.com/fjvfsqea.json"
+                  trigger="hover"
+                  stroke="bold"
+                  colors="primary:#242424,secondary:#3080e8"
+                  style="width: 24px; height: 24px"
+                >
+                </lord-icon>
+              </span>
+              Create Resume
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="Project.html" class="menu-link">
+              <span class="menu-icon">
+                <lord-icon
+                  src="https://cdn.lordicon.com/exymduqj.json"
+                  trigger="hover"
+                  stroke="bold"
+                  colors="primary:#242424,secondary:#ffffff"
+                  style="width: 24px; height: 24px"
+                >
+                </lord-icon>
+              </span>
+              Projects
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="browse.html" class="menu-link active">
+              <span class="menu-icon">
+                <lord-icon
+                  src="https://cdn.lordicon.com/wjyqkiew.json"
+                  trigger="hover"
+                  stroke="bold"
+                  colors="primary:#242424,secondary:#3080e8"
+                  style="width: 24px; height: 24px"
+                >
+                </lord-icon>
+              </span>
+              Browse
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <div id="sidebar-container"></div>
+    <div id="navbar-container"></div>
+
+    <div class="main-content">
+      <section class="search-section">
+        <h1 class="search-title">Find Your Next Opportunity</h1>
+        <div class="search-container">
+          <div class="search-box">
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Search for opportunities, companies, or skills..."
+            />
+            <button class="search-button">Search</button>
+          </div>
+          <div class="filters">
+            <button class="filter-button active">All</button>
+            <button class="filter-button">Internships</button>
+            <button class="filter-button">Full-time</button>
+            <button class="filter-button">Part-time</button>
+            <button class="filter-button">Remote</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="browse-content">
+        <div class="opportunities-list">
+          <div class="opportunity-card">
+            <div class="opportunity-header">
+              <div class="company-info">
+                <div class="company-logo">🚀</div>
+                <div class="company-details">
+                  <h3>Software Development Intern</h3>
+                  <p>TechCorp Solutions</p>
+                </div>
+              </div>
+              <span class="opportunity-type">Internship</span>
+            </div>
+            <p class="opportunity-description">
+              Join our dynamic team and work on cutting-edge projects. Great
+              opportunity for students looking to gain real-world experience in
+              software development.
+            </p>
+            <div class="opportunity-tags">
+              <span class="tag">React</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">Remote</span>
+              <span class="tag">3 months</span>
+            </div>
+          </div>
+
+          <div class="opportunity-card">
+            <div class="opportunity-header">
+              <div class="company-info">
+                <div class="company-logo">💻</div>
+                <div class="company-details">
+                  <h3>Frontend Developer</h3>
+                  <p>WebStack Industries</p>
+                </div>
+              </div>
+              <span class="opportunity-type">Full-time</span>
+            </div>
+            <p class="opportunity-description">
+              Looking for a talented frontend developer to join our growing
+              team. Help build beautiful and responsive web applications.
+            </p>
+            <div class="opportunity-tags">
+              <span class="tag">JavaScript</span>
+              <span class="tag">Vue.js</span>
+              <span class="tag">CSS</span>
+              <span class="tag">Hybrid</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="filters-sidebar">
+          <div class="filter-section">
+            <h3>Experience Level</h3>
+            <div class="filter-options">
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox" />
+                Entry Level
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox" />
+                Intermediate
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox" />
+                Senior
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h3>Job Type</h3>
+            <div class="filter-options">
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox" />
+                Full-time
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox" />
+                Part-time
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox" />
+                Internship
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox" />
+                Contract
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h3>Location</h3>
+            <div class="filter-options">
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox" />
+                Remote
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox" />
+                On-site
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="filter-checkbox" />
+                Hybrid
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

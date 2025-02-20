@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skillsync Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e6f3ff;
+            overflow: hidden;
+        }
+
+        .login-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e1e1e1;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #004080;
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        input:invalid:not(:focus):not(:placeholder-shown) ~ .error-message {
+            display: block;
+        }
+
+        .button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .button:active {
+            transform: scale(0.98);
+        }
+
+        .login-btn {
+            background: #2563eb;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .login-btn:disabled {
+            background: #93c5fd;
+            cursor: not-allowed;
+        }
+
+        .forgot-btn {
+            background: transparent;
+            color: #004080;
+            text-decoration: underline;
+            margin-top: 10px;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: #e1e1e1;
+        }
+
+        .divider::before {
+            left: 0;
+        }
+
+        .divider::after {
+            right: 0;
+        }
+
+        .divider-text {
+            background: white;
+            padding: 0 10px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #e1e1e1;
+            border-radius: 6px;
+            background: white;
+            color: #333;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            margin: 0 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: #f5f5f5;
+        }
+
+        .alert {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .alert-success {
+            background: #dcfce7;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="image_(3)_bg_removed.png[2].png.jpg" alt="Skillsync Logo" class="logo" width="200" height="100">
+        
+        <div id="alertMessage" class="alert"></div>
+
+        <form id="loginForm" action="loginbe.php" method="POST" onsubmit="return validateForm()">
+            <div class="input-group">
+                <label for="name">Full Name</label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="full_name" 
+                    required 
+                    pattern="^[A-Za-z\s]{2,100}$"
+                    placeholder="Enter your full name"
+                >
+                <div class="error-message">Please enter a valid name (letters and spaces only)</div>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    required
+                    placeholder="Enter your email address"
+                >
+                <div class="error-message">Please enter a valid email address</div>
+            </div>
+
+            <div class="input-group">
+                <label for="institute">Institute</label>
+                <input 
+                    type="text" 
+                    id="institute" 
+                    name="institute" 
+                    required
+                    minlength="2"
+                    placeholder="Enter your institute name"
+                >
+                <div class="error-message">Institute name must be at least 2 characters</div>
+            </div>
+
+            <div class="input-group">
+                <label for="profession">Profession</label>
+                <select id="profession" name="profession" required>
+                    <option value="">Select your role</option>
+                    <option value="student">Student</option>
+                    <option value="Industry Expert">Industry Expert</option>
+                </select>
+                <div class="error-message">Please select your profession</div>
+            </div>
+
+            <button type="submit" class="button login-btn" id="submitBtn">Login</button>
+            <button type="button" class="button forgot-btn" onclick="handleForgotDetails()">Forgot Details?</button>
+
+            <div class="social-buttons">
+                <button type="button" class="social-btn" onclick="handleSocialLogin('instagram')">
+                    <img src="instagram (1).png" alt="Instagram" height="30" width="30">
+                </button>
+                <button type="button" class="social-btn" onclick="handleSocialLogin('facebook')">
+                    <img src="facebook.png" alt="Facebook" height="30" width="30">
+                </button>
+                <button type="button" class="social-btn" onclick="handleSocialLogin('twitter')">
+                    <img src="twitter.png" alt="Twitter" height="30" width="30">
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            const form = document.getElementById('loginForm');
+            const alertMessage = document.getElementById('alertMessage');
+            const submitBtn = document.getElementById('submitBtn');
+
+            // Reset alert
+            alertMessage.style.display = 'none';
+            alertMessage.className = 'alert';
+
+            // Validate name
+            const name = document.getElementById('name').value;
+            if (!/^[A-Za-z\s]{2,100}$/.test(name)) {
+                showError('Please enter a valid name using only letters and spaces');
+                return false;
+            }
+
+            // Validate email
+            const email = document.getElementById('email').value;
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showError('Please enter a valid email address');
+                return false;
+            }
+
+            // Validate institute
+            const institute = document.getElementById('institute').value;
+            if (institute.length < 2) {
+                showError('Institute name must be at least 2 characters long');
+                return false;
+            }
+
+            // Validate profession
+            const profession = document.getElementById('profession').value;
+            if (!profession) {
+                showError('Please select your profession');
+                return false;
+            }
+
+            // Disable submit button to prevent double submission
+            submitBtn.disabled = true;
+            return true;
+        }
+
+        function showError(message) {
+            const alertMessage = document.getElementById('alertMessage');
+            alertMessage.textContent = message;
+            alertMessage.className = 'alert alert-error';
+            alertMessage.style.display = 'block';
+        }
+
+        function handleForgotDetails() {
+            const email = document.getElementById('email').value;
+            if (email) {
+                // You can implement the forgot details functionality here
+                alert('Password reset link will be sent to: ' + email);
+            } else {
+                showError('Please enter your email address first');
+            }
+        }
+
+        function handleSocialLogin(platform) {
+            // Implement social login functionality
+            console.log(`Logging in with ${platform}`);
+            // You can add your social login implementation here
+        }
+
+        // Real-time validation
+        document.querySelectorAll('input, select').forEach(input => {
+            input.addEventListener('input', () => {
+                const submitBtn = document.getElementById('submitBtn');
+                const form = document.getElementById('loginForm');
+                submitBtn.disabled = !form.checkValidity();
+            });
+        });
+    </script>
+</body>
+</html>

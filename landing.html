@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkillSync - Bridge Your Skills to Opportunities</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body {
+        background: linear-gradient(to bottom, #eef6ff, #ffffff);
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .hero {
+        text-align: center;
+        padding: 80px 0;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+        color: #1a365d;
+        margin-bottom: 20px;
+      }
+
+      .hero p.subtitle {
+        font-size: 24px;
+        color: #4a5568;
+        margin-bottom: 20px;
+        max-width: 800px;
+        margin: 0 auto 20px;
+      }
+
+      .hero p.description {
+        font-size: 18px;
+        color: #718096;
+        max-width: 700px;
+        margin: 0 auto 40px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 15px 30px;
+        background-color: #2563eb;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+
+      .btn:hover {
+        background-color: #1d4ed8;
+      }
+
+      .features {
+        background: white;
+        padding: 80px 0;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        padding: 40px 0;
+      }
+
+      .feature-card {
+        background: #eef6ff;
+        padding: 30px;
+        border-radius: 10px;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-icon {
+        width: 50px;
+        height: 50px;
+        background: #2563eb;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .feature-icon svg {
+        width: 25px;
+        height: 25px;
+        fill: white;
+      }
+
+      .feature-card h3 {
+        font-size: 20px;
+        color: #1a365d;
+        margin-bottom: 15px;
+      }
+
+      .feature-card p {
+        color: #4a5568;
+      }
+
+      .cta {
+        background: #eef6ff;
+        padding: 80px 0;
+        text-align: center;
+      }
+
+      .cta h2 {
+        font-size: 36px;
+        color: #1a365d;
+        margin-bottom: 20px;
+      }
+
+      .cta p {
+        font-size: 18px;
+        color: #4a5568;
+        max-width: 600px;
+        margin: 0 auto 30px;
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 36px;
+        }
+
+        .hero p.subtitle {
+          font-size: 20px;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .container {
+          padding: 0 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero">
+      <div class="container">
+        <h1>SkillSync</h1>
+        <p class="subtitle">
+          Bridging the gap between student innovation and industry opportunities
+        </p>
+        <p class="description">
+          A dedicated platform where students showcase their projects, receive
+          valuable feedback, and connect with real-world opportunities
+        </p>
+        <a href="http://localhost/xampp/SkillSync/login.html" class="btn">Get Started</a>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="container">
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                ></path>
+              </svg>
+            </div>
+            <h3>Project Showcase</h3>
+            <p>
+              Build and present your portfolio with powerful project
+              presentation tools designed for student innovators.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                ></path>
+              </svg>
+            </div>
+            <h3>Peer Feedback</h3>
+            <p>
+              Get valuable insights from peers and industry experts to improve
+              your projects and skills.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                ></path>
+              </svg>
+            </div>
+            <h3>Industry Connections</h3>
+            <p>
+              Connect directly with companies and opportunities that match your
+              skills and interests.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                ></path>
+              </svg>
+            </div>
+            <h3>Portfolio Building</h3>
+            <p>
+              Create a compelling portfolio that highlights your best work and
+              achievements.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                ></path>
+              </svg>
+            </div>
+            <h3>Opportunity Matching</h3>
+            <p>
+              Get matched with relevant opportunities based on your projects and
+              expertise.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <h2>Ready to Showcase Your Potential?</h2>
+        <p>
+          Join SkillSync today and connect your projects with real-world
+          opportunities. Start building your future in tech.
+        </p>
+        <a href="http://localhost/xampp/SkillSync/login.html" class="btn">Sign Up Now</a>
+      </div>
+    </section>
+  </body>
+</html>

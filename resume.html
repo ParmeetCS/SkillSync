@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSync - Resume Builder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+
+        .resume-builder {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .builder-sidebar {
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            border-left: 2px solid #e5e7eb;
+            padding-left: 1rem;
+        }
+
+        .nav-item {
+            margin: 1rem 0;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            background: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-size: 1rem;
+            color: #1f2937;
+        }
+
+        .nav-item.active {
+            background: #2563eb;
+            color: white;
+            transform: translateX(10px);
+        }
+
+        .nav-item:hover:not(.active) {
+            background: #f1f5f9;
+        }
+
+        .builder-main {
+            padding: 1rem;
+        }
+
+        .section-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #e5e7eb;
+            scroll-margin-top: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: #2563eb;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .skill-rating {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .rating-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .rating-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .rating-dot.active {
+            background: #2563eb;
+        }
+
+        .submit-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .submit-button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .submit-button:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert-success {
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .alert-error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        @media (max-width: 768px) {
+            .resume-builder {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .builder-sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="successAlert" class="alert alert-success"></div>
+    <div id="errorAlert" class="alert alert-error"></div>
+
+    <form action="config.php" id="resumeForm" class="resume-builder" method="POST">
+     
+        <div class="builder-sidebar">
+            <nav class="sidebar-nav">
+                <button type="button" class="nav-item active" data-section="personal-info">Personal Information</button>
+                <button type="button" class="nav-item" data-section="education">Education</button>
+                <button type="button" class="nav-item" data-section="skills">Skills</button>
+                <button type="button" class="nav-item" data-section="projects">Projects</button>
+            </nav>
+        </div>
+
+       
+        <div class="builder-main">
+           
+            <section id="personal-info" class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">1</div>
+                    <h2>Personal Information</h2>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" name="full_name" class="form-input" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" name="email" class="form-input" placeholder="john@skillsync.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" name="phone" class="form-input" placeholder="+1 234 567 890">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Portfolio Link</label>
+                    <input type="url" name="portfolio_link" class="form-input" placeholder="https://portfolio.johndoe.com">
+                </div>
+            </section>
+
+           
+            <section id="education" class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">2</div>
+                    <h2>Education</h2>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Institution Name</label>
+                    <input type="text" name="institution_name" class="form-input" placeholder="University Name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Degree</label>
+                    <input type="text" name="degree" class="form-input" placeholder="Bachelor of Technology" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Field of Study</label>
+                    <input type="text" name="field_of_study" class="form-input" placeholder="Computer Science" required>
+                </div>
+            </section>
+
+          
+            <section id="skills" class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">3</div>
+                    <h2>Skills</h2>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Skill Name</label>
+                    <input type="text" name="skill_name" class="form-input" placeholder="Web Development" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Proficiency Level</label>
+                    <input type="hidden" name="proficiency_level" id="proficiency_level" value="3">
+                    <div class="skill-rating">
+                        <div class="rating-dots">
+                            <div class="rating-dot"></div>
+                            <div class="rating-dot"></div>
+                            <div class="rating-dot active"></div>
+                            <div class="rating-dot"></div>
+                            <div class="rating-dot"></div>
+                        </div>
+                        <span>Intermediate</span>
+                    </div>
+                </div>
+            </section>
+
+         
+            <section id="projects" class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">4</div>
+                    <h2>Projects</h2>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Project Title</label>
+                    <input type="text" name="project_title" class="form-input" placeholder="E-commerce Website" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Project Description</label>
+                    <textarea name="project_description" class="form-input" rows="4" placeholder="Describe your project..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Project Link</label>
+                    <input type="url" name="project_link" class="form-input" placeholder="https://project.example.com">
+                </div>
+                <div class="submit-container">
+                    <button type="submit" class="submit-button">Submit</button>
+                </div>
+            </section>
+        </div>
+    </form>
+    
+
+    <script>
+        
+        function showAlert(message, type) {
+            const alert = document.getElementById(type === 'success' ? 'successAlert' : 'errorAlert');
+            alert.textContent = message;
+            alert.style.display = 'block';
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 5000);
+        }
+
+        
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                
+                const sectionId = this.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        document.querySelectorAll('.rating-dot').forEach((dot, index, dots) => {
+            dot.addEventListener('click', () => {
+                dots.forEach((d, i) => {
+                    if (i <= index) {
+                        d.classList.add('active');
+                    } else {
+                        d.classList.remove('active');
+                    }
+                });
+                
+                const proficiencyLevels = ['Beginner', 'Basic', 'Intermediate', 'Advanced', 'Expert'];
+                const proficiencyText = dot.parentElement.nextElementSibling;
+                proficiencyText.textContent = proficiencyLevels[index];
+                
+                document.getElementById('proficiency_level').value = index + 1;
+            });
+        });
+
+     
+        document.querySelector('.submit-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(document.getElementById('resumeForm'));
+            
+            fetch('save_resume.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showAlert(data.message, 'success');
+                    document.getElementById('resumeForm').reset();
+                } else {
+                    showAlert(data.message, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showAlert('An error occurred while saving the resume.', 'error');
+            });
+        });
+    </script>
+    
+</body>
+</html>

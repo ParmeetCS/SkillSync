@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact SkillSync - Get in Touch</title>
+  </head>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #f5f7ff;
+      --text-color: #333333;
+      --sidebar-width: 250px;
+      --header-height: 70px;
+      --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f9fafb;
+      color: var(--text-color);
+    }
+
+    .sidebar {
+      position: fixed;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background-color: white;
+      border-right: 1px solid #eaeaea;
+      padding: 20px 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+      overflow-y: auto;
+    }
+
+    .logo-container {
+      padding: 15px 20px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-container img {
+      width: 100%;
+      height: 100%;
+      margin-left: -10px;
+    }
+
+    .student-section {
+      padding: 0 20px;
+    }
+
+    .section-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 15px;
+      letter-spacing: 0.5px;
+    }
+
+    .menu-items {
+      list-style: none;
+    }
+
+    .menu-item {
+      margin-bottom: 10px;
+    }
+
+    .menu-link {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      border-radius: 8px;
+      color: var(--text-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .menu-link:hover,
+    .menu-link.active {
+      background-color: var(--secondary-color);
+      color: var(--primary-color);
+    }
+
+    .menu-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: var(--sidebar-width);
+      right: 0;
+      height: var(--header-height);
+      background-color: white;
+      box-shadow: var(--shadow);
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 99;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-item {
+      margin: 0 15px;
+    }
+
+    .nav-link {
+      color: var(--text-color);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: var(--secondary-color);
+      color: var(--primary-color);
+    }
+
+    .profile-area {
+      display: flex;
+      align-items: center;
+    }
+
+    .notifications {
+      margin-right: 20px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .notification-icon {
+      width: 24px;
+      height: 24px;
+      color: #666;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 18px;
+      height: 18px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .main-content {
+      margin-left: var(--sidebar-width);
+      padding-top: var(--header-height);
+    }
+
+    .contact-hero {
+      padding: 4rem 2rem 2rem;
+      text-align: center;
+      background-color: #0a66c2;
+      color: white;
+    }
+
+    .contact-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .contact-grid {
+      background-color: white;
+      border-radius: 12px;
+      padding: 3rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .btn {
+      background-color: #0a66c2;
+      color: white;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #084e96;
+    }
+
+    .info-section {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 2rem;
+      background-color: #0a66c2;
+      color: white;
+      border-radius: 8px;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    @media (max-width: 992px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .header {
+        left: 0;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+  </style>
+  <body>
+    <aside class="sidebar">
+      <div class="logo-container">
+        <img src="image_(3)_bg_removed.png[2].png.jpg" alt="logo" />
+      </div>
+
+        <ul class="menu-items">
+          <li class="menu-item">
+            <a href="tips.html" class="menu-link">
+              <span class="menu-icon">
+                <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                <lord-icon
+                  src="https://cdn.lordicon.com/fcyboqbm.json"
+                  trigger="hover"
+                  style="width: 250px; height: 250px"
+                >
+                </lord-icon>
+              </span>
+              Tips & Insights
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="resume.html" class="menu-link">
+              <span class="menu-icon">
+                <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                <lord-icon
+                  src="https://cdn.lordicon.com/fjvfsqea.json"
+                  trigger="hover"
+                  stroke="bold"
+                  colors="primary:#242424,secondary:#3080e8"
+                  style="width: 250px; height: 250px"
+                >
+                </lord-icon>
+              </span>
+              Create Resume
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link">
+              <span class="menu-icon">
+                <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                <lord-icon
+                  src="https://cdn.lordicon.com/exymduqj.json"
+                  trigger="hover"
+                  stroke="bold"
+                  colors="primary:#242424,secondary:#ffffff"
+                  style="width: 250px; height: 250px"
+                >
+                </lord-icon>
+              </span>
+              Projects
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="Project.html" class="menu-link">
+              <span class="menu-icon">
+                <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                <lord-icon
+                  src="https://cdn.lordicon.com/wjyqkiew.json"
+                  trigger="hover"
+                  stroke="bold"
+                  colors="primary:#242424,secondary:#3080e8"
+                  style="width: 250px; height: 250px"
+                >
+                </lord-icon>
+              </span>
+              Browse
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <header class="header">
+      <ul class="nav-links">
+        <li class="nav-item">
+          <a href="home.html" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="About.html" class="nav-link">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="Contact.html" class="nav-link active">Contact</a>
+        </li>
+      </ul>
+
+      <div class="profile-area">
+        <div class="notifications">
+          <div class="notification-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="{1.5}"
+              stroke="currentColor"
+              className="size-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
+              />
+            </svg>
+          </div>
+        </div>
+        <a href="profiles.html"><img src="avatar.webp.jpg" class="avatar"></a>
+
+        </div>
+    </header>
+
+    <main class="main-content">
+      <section class="contact-hero">
+        <h1>Get in Touch</h1>
+        <p>
+          Have questions about Skillsync? We're here to help and would love to
+          hear from you.
+        </p>
+      </section>
+
+      <div class="container">
+        <div class="contact-grid">
+          <form id="contactForm" action="contact_handler.php" method="post">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <select id="subject" name="subject" class="form-control" required>
+                <option value="">Select a subject</option>
+                <option value="general">General Inquiry</option>
+                <option value="support">Technical Support</option>
+                <option value="partnership">Partnership Opportunity</option>
+                <option value="feedback">Feedback</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                class="form-control"
+                rows="5"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn">Send Message</button>
+          </form>
+        </div>
+
+        <div class="info-section">
+          <h3>
+            <script src="https://cdn.lordicon.com/lordicon.js"></script>
+            <lord-icon
+              src="https://cdn.lordicon.com/onmwuuox.json"
+              trigger="hover"
+              stroke="bold"
+              state="hover-roll"
+              style="
+                width: 35px;
+                height: 35px;
+                padding: 10px;
+                margin-right: 5px;
+                margin-bottom: 2px;
+              "
+            >
+            </lord-icon>
+
+            Address
+          </h3>
+          <p>123 Tech Street, Innovation City, ST 12345</p>
+          <h3>
+            <script src="https://cdn.lordicon.com/lordicon.js"></script>
+            <lord-icon
+              src="https://cdn.lordicon.com/ozlkyfxg.json"
+              trigger="hover"
+              stroke="bold"
+              state="hover-spin"
+              style="
+                width: 30px;
+                height: 30px;
+                padding: 10px;
+                margin-right: 10px;
+                margin-bottom: 2px;
+              "
+            >
+            </lord-icon>
+
+            E-mail
+          </h3>
+          <p>skillssync04@gmail.com</p>
+          <h3>
+            <script src="https://cdn.lordicon.com/lordicon.js"></script>
+            <lord-icon
+              src="https://cdn.lordicon.com/nnzfcuqw.json"
+              trigger="hover"
+              stroke="bold"
+              state="hover-draw"
+              style="
+                width: 30px;
+                height: 30px;
+                padding: 10px;
+                margin-right: 10px;
+                margin-bottom: 2px;
+              "
+            >
+            </lord-icon>
+            Phone
+          </h3>
+          <p>+918699847703| Mon-Fri: 9:00 AM - 6:00 PM</p>
+          <h3>Follow Us</h3>
+          <div class="social-icons">
+            <div class="social-icon">in</div>
+            <div class="social-icon">f</div>
+            <div class="social-icon">tw</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
